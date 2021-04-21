@@ -18,6 +18,7 @@ Route::get('/', 'DashboardController@dashboardAnalytics');
 
 // Route Dashboards
 Route::get('/dashboard-analytics', 'DashboardController@dashboardAnalytics');
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 
 // Route Components
 Route::get('/sk-layout-2-columns', 'StaterkitController@columns_2');
