@@ -42,7 +42,8 @@
           </div>
           <ul class="nav navbar-nav float-right">
             <li class="dropdown dropdown-language nav-item">
-              <a class="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 <i class="flag-icon flag-icon-us"></i>
                 <span class="selected-language">English</span>
               </a>
@@ -159,8 +160,16 @@
                   Inbox</a><a class="dropdown-item" href="javascript:void(0)"><i class="feather icon-check-square"></i>
                   Task</a><a class="dropdown-item" href="javascript:void(0)"><i class="feather icon-message-square"></i>
                   Chats</a>
-                <div class="dropdown-divider"></div><a class="dropdown-item" href="javascript:void(0)"><i
-                    class="feather icon-power"></i> Logout</a>
+                <div class="dropdown-divider"></div>
+                <!-- <a class="dropdown-item" href="javascript:void(0)"><i
+                    class="feather icon-power"></i> Logout</a> -->
+                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                  {{ __('Logout') }}
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                  @csrf
+                </form>
               </div>
             </li>
           </ul>
