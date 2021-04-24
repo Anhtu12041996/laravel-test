@@ -3,15 +3,15 @@
 @section('title', 'User List Page')
 
 @section('vendor-style')
-        {{-- Page Css files --}}
-        <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/ag-grid/ag-grid.css')) }}">
-        <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/ag-grid/ag-theme-material.css')) }}">
+{{-- Page Css files --}}
+<link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/ag-grid/ag-grid.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/ag-grid/ag-theme-material.css')) }}">
 @endsection
 
 @section('page-style')
-        {{-- Page Css files --}}
-        <link rel="stylesheet" href="{{ asset(mix('css/pages/app-user.css')) }}">
-        <link rel="stylesheet" href="{{ asset(mix('css/pages/aggrid.css')) }}">
+{{-- Page Css files --}}
+<link rel="stylesheet" href="{{ asset(mix('css/pages/app-user.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('css/pages/aggrid.css')) }}">
 @endsection
 
 @section('content')
@@ -40,12 +40,12 @@
                 <fieldset class="form-group">
                   <select class="form-control" id="users-list-role">
                     <option value="">All</option>
-                    <option value="user">User</option>
-                    <option value="staff">Staff</option>
+                    <option value="user">Admin</option>
+                    <option value="staff">Design</option>
                   </select>
                 </fieldset>
               </div>
-              <div class="col-12 col-sm-6 col-lg-3">
+              <!-- <div class="col-12 col-sm-6 col-lg-3">
                 <label for="users-list-status">Status</label>
                 <fieldset class="form-group">
                   <select class="form-control" id="users-list-status">
@@ -65,8 +65,8 @@
                     <option value="false">No</option>
                   </select>
                 </fieldset>
-              </div>
-              <div class="col-12 col-sm-6 col-lg-3">
+              </div> -->
+              <!-- <div class="col-12 col-sm-6 col-lg-3">
                 <label for="users-list-department">Department</label>
                 <fieldset class="form-group">
                   <select class="form-control" id="users-list-department">
@@ -76,7 +76,7 @@
                     <option value="Management">Management</option>
                   </select>
                 </fieldset>
-              </div>
+              </div> -->
             </div>
           </form>
         </div>
@@ -91,7 +91,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-12">
-              <div class="ag-grid-btns d-flex justify-content-between flex-wrap mb-1">
+              <!-- <div class="ag-grid-btns d-flex justify-content-between flex-wrap mb-1">
                 <div class="dropdown sort-dropdown mb-1 mb-sm-0">
                   <button class="btn btn-white filter-btn dropdown-toggle border text-dark" type="button"
                     id="dropdownMenuButton6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -101,9 +101,10 @@
                     <a class="dropdown-item" href="#">20</a>
                     <a class="dropdown-item" href="#">50</a>
                   </div>
-                </div>
-                <div class="ag-btns d-flex flex-wrap">
-                  <input type="text" class="ag-grid-filter form-control w-50 mr-1 mb-1 mb-sm-0" id="filter-text-box"
+                </div> -->
+              <div class="ag-btns d-flex flex-wrap">
+                <a href="{{ route('users.create')}}" class="btn btn-primary">Create</a>
+                <!-- <input type="text" class="ag-grid-filter form-control w-50 mr-1 mb-1 mb-sm-0" id="filter-text-box"
                     placeholder="Search...." />
                   <div class="action-btns">
                     <div class="btn-dropdown ">
@@ -120,27 +121,83 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </div> -->
               </div>
             </div>
           </div>
-          <div id="myGrid" class="aggrid ag-theme-material"></div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <td>ID</td>
+                  <td>Username</td>
+                  <td>Email</td>
+                  <td>First name</td>
+                  <td>Last name</td>
+                  <td colspan=2></td>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($users as $user)
+                <tr>
+                  <td>{{$user->id}}</td>
+                  <td>{{$user->first_name}} {{$user->last_name}}</td>
+                  <td>{{$user->email}}</td>
+                  <td>{{$user->first_name}}</td>
+                  <td>{{$user->last_name}}</td>
+                  <td>
+                    <div class="action-btns">
+                      <div class="btn-dropdown ">
+                        <div class="btn-group dropdown actions-dropodown">
+                          <button type="button"
+                            class="btn btn-white px-2 py-75 dropdown-toggle waves-effect waves-light"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Actions
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ route('users.edit',$user->id)}}"><i
+                                class="fa fa-pencil"></i> Edit</a>
+                            <a class="dropdown-item" href="{{ route('users.show',$user->id)}}"><i
+                                class="feather icon-clipboard"></i> Archive</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                    document.getElementById('delete-{{$user->id}}').submit();">
+                              <i class="feather icon-trash-2"></i>{{ __('Delete') }}
+                            </a>
+                             <form id="delete-{{$user->id}}" action="{{ route('users.destroy', $user->id)}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                              </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+            <div>
+            </div>
+            <!-- <div id="myGrid" class="aggrid ag-theme-material">uii</div> -->
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Ag Grid users list section end -->
+    <!-- Ag Grid users list section end -->
 </section>
 <!-- users list ends -->
 @endsection
 
 @section('vendor-script')
-  {{-- Vendor js files --}}
-  <script src="{{ asset(mix('vendors/js/tables/ag-grid/ag-grid-community.min.noStyle.js')) }}"></script>
+{{-- Vendor js files --}}
+<script src="{{ asset(mix('vendors/js/tables/ag-grid/ag-grid-community.min.noStyle.js')) }}"></script>
 @endsection
 
 @section('page-script')
-  {{-- Page js files --}}
-  <script src="{{ asset(mix('js/scripts/pages/app-user.js')) }}"></script>
+{{-- Page js files --}}
+<script src="{{ asset(mix('js/scripts/pages/app-user.js')) }}"></script>
 @endsection

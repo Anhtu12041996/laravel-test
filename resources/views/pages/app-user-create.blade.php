@@ -3,15 +3,15 @@
 @section('title', 'Create User Page')
 
 @section('vendor-style')
-        {{-- Page Css files --}}
-        <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
-        <link rel="stylesheet" href="{{ asset(mix('vendors/css/pickers/pickadate/pickadate.css')) }}">
+{{-- Page Css files --}}
+<link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('vendors/css/pickers/pickadate/pickadate.css')) }}">
 @endsection
 
 @section('page-style')
-        {{-- Page Css files --}}
-        <link rel="stylesheet" href="{{ asset(mix('css/plugins/forms/validation/form-validation.css')) }}">
-        <link rel="stylesheet" href="{{ asset(mix('css/pages/app-user.css')) }}">
+{{-- Page Css files --}}
+<link rel="stylesheet" href="{{ asset(mix('css/plugins/forms/validation/form-validation.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('css/pages/app-user.css')) }}">
 
 @endsection
 
@@ -62,38 +62,55 @@
             </div> -->
             <!-- users edit media object ends -->
             <!-- users edit account form start -->
-            <form novalidate>
+            <form method="POST" action="{{ route('users.store') }}">
+              @csrf
               <div class="row">
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
                     <div class="controls">
-                      <label>Username</label>
-                      <input type="text" class="form-control" placeholder="Username" value="" required
-                        data-validation-required-message="This username field is required">
+                      <label>E-mail</label>
+                      <input type="email" class="form-control" name="email" placeholder="Email" value="" required
+                        data-validation-required-message="This email field is required">
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="controls">
-                      <label>Name</label>
-                      <input type="text" class="form-control" placeholder="Name" value="" required
+                      <label>First Name</label>
+                      <input type="text" class="form-control" name="first_name" placeholder="Name" value="" required
                         data-validation-required-message="This name field is required">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="controls">
+                      <label>Username</label>
+                      <input type="text" class="form-control" name="user_name" placeholder="Username" value="" required
+                        data-validation-required-message="This username field is required">
                     </div>
                   </div>
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
+                    <!-- <input type="password" id="inputPassword" class="form-control" placeholder="Password" required> -->
+                    <label for="password">Password</label>
+                    <input id="password" type="text" class="form-control @error('password') is-invalid @enderror"
+                      name="password" placeholder="Password" required autocomplete="new-password">
+                    @error('password')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                  </div>
+                  <div class="form-group">
                     <div class="controls">
-                      <label>E-mail</label>
-                      <input type="email" class="form-control" placeholder="Email" value=""
-                        required data-validation-required-message="This email field is required">
+                      <label>Last Name</label>
+                      <input type="text" class="form-control" name="last_name" placeholder="Name" value="" required
+                        data-validation-required-message="This name field is required">
                     </div>
                   </div>
                   <div class="form-group">
                     <label>Role</label>
-                    <select class="form-control">
-                      <option>Admin</option>
-                      <option>User</option>
-                      <!-- <option>Staff</option> -->
+                    <select name="level" class="form-control">
+                      <option value="2">Designer</option>
                     </select>
                   </div>
                   <!-- <div class="form-group">
@@ -205,7 +222,7 @@
                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
                   <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">Save
                     Changes</button>
-                  <button type="reset" class="btn btn-outline-warning">Reset</button>
+                  <!-- <button type="reset" class="btn btn-outline-warning">Reset</button> -->
                 </div>
               </div>
             </form>
@@ -460,15 +477,15 @@
 @endsection
 
 @section('vendor-script')
-  {{-- Vendor js files --}}
-  <script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
-  <script src="{{ asset(mix('vendors/js/forms/validation/jqBootstrapValidation.js')) }}"></script>
-  <script src="{{ asset(mix('vendors/js/pickers/pickadate/picker.js')) }}"></script>
-  <script src="{{ asset(mix('vendors/js/pickers/pickadate/picker.date.js')) }}"></script>
+{{-- Vendor js files --}}
+<script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/forms/validation/jqBootstrapValidation.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/pickers/pickadate/picker.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/pickers/pickadate/picker.date.js')) }}"></script>
 @endsection
 
 @section('page-script')
-  {{-- Page js files --}}
-  <script src="{{ asset(mix('js/scripts/pages/app-user.js')) }}"></script>
-  <script src="{{ asset(mix('js/scripts/navs/navs.js')) }}"></script>
+{{-- Page js files --}}
+<script src="{{ asset(mix('js/scripts/pages/app-user.js')) }}"></script>
+<script src="{{ asset(mix('js/scripts/navs/navs.js')) }}"></script>
 @endsection

@@ -3,8 +3,8 @@
 @section('title', 'View User Page')
 
 @section('page-style')
-        {{-- Page Css files --}}
-        <link rel="stylesheet" href="{{ asset(mix('css/pages/app-user.css')) }}">
+{{-- Page Css files --}}
+<link rel="stylesheet" href="{{ asset(mix('css/pages/app-user.css')) }}">
 @endsection
 
 @section('content')
@@ -15,48 +15,54 @@
     <div class="col-12">
       <div class="card">
         <div class="card-body">
-          <div class="card-title">Account</div>
+          <div class="card-title">{{ $user->user_name }}</div>
           <div class="row">
             <div class="col-2 users-view-image">
-              <img src="{{ asset('images/portrait/small/avatar-s-12.jpg') }}" class="w-100 rounded mb-2"
-                alt="avatar">
+              <img src="{{ asset('images/portrait/small/avatar-s-12.jpg') }}" class="w-100 rounded mb-2" alt="avatar">
               <!-- height="150" width="150" -->
             </div>
             <div class="col-sm-4 col-12">
               <table>
                 <tr>
                   <td class="font-weight-bold">Username</td>
-                  <td>adoptionism744</td>
+                  <td>{{ $user->user_name }}</td>
                 </tr>
                 <tr>
-                  <td class="font-weight-bold">Name</td>
-                  <td>Angelo Sashington</td>
+                  <td class="font-weight-bold">First name</td>
+                  <td>{{ $user->first_name }}</td>
                 </tr>
                 <tr>
                   <td class="font-weight-bold">Email</td>
-                  <td>angelo@sashington.com</td>
+                  <td>{{ $user->email }}</td>
                 </tr>
               </table>
             </div>
             <div class="col-md-6 col-12 ">
               <table class="ml-0 ml-sm-0 ml-lg-0">
                 <tr>
-                  <td class="font-weight-bold">Status</td>
-                  <td>active</td>
-                </tr>
-                <tr>
                   <td class="font-weight-bold">Role</td>
-                  <td>admin</td>
+                  <td>
+                    @if ($user->level === 1)
+                      Admin
+                    @else
+                      Designer
+                    @endif
+                  </td>
                 </tr>
                 <tr>
-                  <td class="font-weight-bold">Company</td>
-                  <td>WinDon Technologies Pvt Ltd</td>
+                  <td class="font-weight-bold">Last name</td>
+                  <td>{{ $user->last_name }}</td>
                 </tr>
               </table>
             </div>
             <div class="col-12">
-              <a href="app-user-edit" class="btn btn-primary mr-1"><i class="feather icon-edit-1"></i> Edit</a>
-              <button class="btn btn-outline-danger"><i class="feather icon-trash-2"></i> Delete</button>
+              <a href="{{ route('users.edit',$user->id)}}" class="btn btn-primary mr-1"><i class="feather icon-edit-1"></i> Edit</a>
+              <form action="{{ route('users.destroy', $user->id)}}" method="post" class="d-inline-block">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-outline-danger" type="submit">Delete</button>
+              </form>
+              <!-- <button class="btn btn-outline-danger"><i class="feather icon-trash-2"></i> Delete</button> -->
             </div>
           </div>
         </div>
@@ -64,7 +70,7 @@
     </div>
     <!-- account end -->
     <!-- information start -->
-    <div class="col-md-6 col-12 ">
+    <!-- <div class="col-md-6 col-12 ">
       <div class="card">
         <div class="card-body">
           <div class="card-title mb-2">Information</div>
@@ -93,17 +99,17 @@
               <td>female</td>
             </tr>
             <tr>
-              <td class="font-weight-bold">Contact</td>
+              <td class="font-weight-bold">user</td>
               <td>email, message, phone
               </td>
             </tr>
           </table>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- information start -->
     <!-- social links end -->
-    <div class="col-md-6 col-12 ">
+    <!-- <div class="col-md-6 col-12 ">
       <div class="card">
         <div class="card-body">
           <div class="card-title mb-2">Social Links</div>
@@ -141,10 +147,10 @@
           </table>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- social links end -->
     <!-- permissions start -->
-    <div class="col-12">
+    <!-- <div class="col-12">
       <div class="card">
         <div class="card-body">
           <div class="table-responsive">
@@ -241,7 +247,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- permissions end -->
   </div>
 </section>
@@ -249,6 +255,6 @@
 @endsection
 
 @section('page-script')
-  {{-- Page js files --}}
-  <script src="{{ asset(mix('js/scripts/pages/app-user.js')) }}"></script>
+{{-- Page js files --}}
+<script src="{{ asset(mix('js/scripts/pages/app-user.js')) }}"></script>
 @endsection
